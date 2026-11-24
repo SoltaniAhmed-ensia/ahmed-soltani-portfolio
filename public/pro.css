@@ -1,0 +1,90 @@
+/* pro layer: loads last. Accent themes, aurora hero, glass cards, hero ask-bar, project modal, mobile dock, chat extras */
+/* accent themes: higher specificity than the light/dark base themes so they apply in both modes */
+html:root[data-accent=violet]{--ac:#a78bfa;--ac2:#f0abfc}
+html:root[data-accent=emerald]{--ac:#34d399;--ac2:#67e8f9}
+html:root[data-accent=amber]{--ac:#fbbf24;--ac2:#fb7185}
+html:root[data-accent=rose]{--ac:#fb7185;--ac2:#fdba74}
+@media (prefers-color-scheme:light){
+ html:root:not([data-theme=dark])[data-accent=violet]{--ac:#6d28d9;--ac2:#c026d3}
+ html:root:not([data-theme=dark])[data-accent=emerald]{--ac:#047857;--ac2:#0e7490}
+ html:root:not([data-theme=dark])[data-accent=amber]{--ac:#b45309;--ac2:#be123c}
+ html:root:not([data-theme=dark])[data-accent=rose]{--ac:#be123c;--ac2:#c2410c}
+}
+html:root[data-theme=light][data-accent=violet]{--ac:#6d28d9;--ac2:#c026d3}
+html:root[data-theme=light][data-accent=emerald]{--ac:#047857;--ac2:#0e7490}
+html:root[data-theme=light][data-accent=amber]{--ac:#b45309;--ac2:#be123c}
+html:root[data-theme=light][data-accent=rose]{--ac:#be123c;--ac2:#c2410c}
+html{-webkit-text-size-adjust:100%}
+body{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Arabic",sans-serif}
+:focus-visible{outline:2px solid var(--ac2);outline-offset:3px;border-radius:6px}
+
+/* aurora behind the hero */
+.hero2::before,.hero2::after{content:"";position:absolute;z-index:-1;border-radius:50%;filter:blur(70px);opacity:.5;pointer-events:none}
+.hero2::before{width:46vmax;height:46vmax;right:-14vmax;top:-12vmax;background:conic-gradient(from 90deg,var(--ac),var(--ac2),transparent 60%,var(--ac));animation:spin 28s linear infinite}
+.hero2::after{width:30vmax;height:30vmax;left:-12vmax;bottom:-6vmax;background:radial-gradient(closest-side,var(--ac2),transparent);opacity:.22}
+@keyframes spin{to{transform:rotate(1turn)}}
+
+/* hero ask bar */
+.askbar{display:flex;gap:8px;align-items:center;margin:22px 0 4px;max-width:560px;padding:6px 6px 6px 18px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--bg2) 70%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:var(--shadow);transition:border-color var(--ease),box-shadow var(--ease)}
+.askbar:focus-within{border-color:var(--ac);box-shadow:0 0 0 4px color-mix(in srgb,var(--ac) 22%,transparent),var(--shadow)}
+.askbar input{flex:1;min-width:0;background:none;border:0;color:var(--tx);font:inherit;font-size:15px;padding:10px 0;outline:0}
+.askbar button{flex:none;border:0;cursor:pointer;border-radius:999px;padding:11px 20px;font:600 14px/1 inherit;background:linear-gradient(110deg,var(--ac),var(--ac2));color:var(--on)}
+
+/* glass cards with live spotlight */
+.card{position:relative;background:linear-gradient(160deg,color-mix(in srgb,var(--bg2) 75%,transparent),var(--surf));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);overflow:hidden;transition:border-color var(--ease),box-shadow var(--ease),transform var(--ease)}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity var(--ease);background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--ac) 22%,transparent),transparent 70%)}
+.card:hover{border-color:color-mix(in srgb,var(--ac) 60%,var(--line));box-shadow:0 24px 60px -28px color-mix(in srgb,var(--ac) 55%,transparent)}
+.card:hover::after{opacity:1}
+#pg,#skg,#aboutGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:16px}
+#pg .card{cursor:pointer;display:flex;flex-direction:column;gap:10px;min-height:170px}
+#pg .card h3{font-size:19px}
+#pg .card .open{margin-top:auto;font-size:13px;font-weight:600;color:var(--ac2)}
+#pg .card:focus-visible{outline-offset:-2px}
+.tag{transition:background var(--ease),color var(--ease)}
+.card:hover .tag{background:color-mix(in srgb,var(--ac) 16%,transparent)}
+
+/* project modal */
+dialog.pm{width:min(560px,calc(100vw - 24px));max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--line);border-radius:22px;background:var(--bg2);color:var(--tx);box-shadow:0 40px 100px -30px #000;overflow:auto}
+dialog.pm::backdrop{background:rgba(3,4,8,.66);backdrop-filter:blur(6px)}
+dialog.pm[open]{animation:pop .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}}
+.pm .in{padding:clamp(20px,4vw,30px);display:grid;gap:14px}
+.pm h3{font-size:clamp(22px,4vw,28px);padding-right:36px}
+.pm .x{position:absolute;right:14px;top:14px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surf);color:var(--tx);cursor:pointer;font-size:18px}
+.pm .row2{display:flex;flex-wrap:wrap;gap:10px}
+
+/* chat upgrades */
+.chat{border-radius:22px;box-shadow:var(--shadow);border:1px solid color-mix(in srgb,var(--ac) 30%,var(--line))}
+.m.a,.m.u{animation:msg .25s ease-out}
+@keyframes msg{from{opacity:0;transform:translateY(6px)}}
+.typing{animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.4}}
+.ib.on,.cf .mic.on{background:var(--ac);color:var(--on);animation:pulse 1s ease-in-out infinite}
+.cf .mic{flex:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surf);color:var(--tx);cursor:pointer;font-size:17px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:0 14px 10px;scrollbar-width:none}
+.chips button{flex:none;border:1px solid var(--line);background:var(--surf);color:var(--tx);border-radius:999px;padding:7px 14px;font:500 13px/1 inherit;cursor:pointer;white-space:nowrap}
+.chips button:hover{border-color:var(--ac)}
+
+/* toast, back-to-top, dock */
+.toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:150;padding:11px 18px;border-radius:999px;background:var(--tx);color:var(--bg);font:600 14px/1 inherit;transition:.3s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.totop{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:40;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);color:var(--tx);cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+.totop.on{opacity:1;pointer-events:auto}
+.dock{display:none}
+@media (max-width:720px){
+  body{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  .fab{display:none}
+  .dock{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;padding:6px;border:1px solid var(--line);border-radius:22px;background:color-mix(in srgb,var(--bg2) 82%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:var(--shadow)}
+  .dock a,.dock button{display:grid;justify-items:center;gap:2px;padding:8px 2px;border:0;background:none;color:var(--mut);font:600 11px/1.1 inherit;text-decoration:none;border-radius:14px;cursor:pointer}
+  .dock .on{color:var(--tx);background:var(--surf)}
+  .dock .ai{color:var(--on);background:linear-gradient(110deg,var(--ac),var(--ac2))}
+  .dock i{font-style:normal;font-size:18px}
+  .askbar{border-radius:20px;flex-wrap:wrap;padding:10px}
+  .askbar input{flex:1 1 100%;padding:6px 8px}
+  .askbar button{width:100%}
+  .totop{bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+  .hgrid{grid-template-columns:1fr}
+}
+@media (min-width:1500px){.wrap{max-width:1280px}}
+@media (prefers-reduced-motion:reduce){.hero2::before{animation:none}*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media print{#net,#glow,.dock,.fab,nav,.askbar,.totop{display:none!important}}

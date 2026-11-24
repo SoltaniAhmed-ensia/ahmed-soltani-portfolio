@@ -1,0 +1,53 @@
+/* luxe layer: loads last. Midnight / electric blue / violet / cyan identity */
+:root{--bg:#05060d;--bg2:#0a1030;--ac:#4f8cff;--ac2:#22d3ee;--ac3:#8b5cf6;--line:rgba(140,170,255,.14);--surf:rgba(120,150,255,.05);--tx:#eef2ff;--mut:#9aa6c7;--r:18px;
+font-family:"Segoe UI Variable Display","Segoe UI",Inter,system-ui,-apple-system,Roboto,sans-serif}
+:root[data-theme=light]{--bg:#f4f6ff;--bg2:#fff;--ac:#2f5fe0;--ac2:#0891b2;--ac3:#6d3fe0;--line:rgba(30,50,120,.15);--surf:rgba(30,50,120,.04);--tx:#0b1030;--mut:#4b5578}
+body{background:radial-gradient(70% 55% at 85% -5%,color-mix(in srgb,var(--ac3) 26%,transparent),transparent),radial-gradient(60% 50% at 0% 25%,color-mix(in srgb,var(--ac) 20%,transparent),transparent),var(--bg)}
+body::before{opacity:.55}
+h2{background:none;color:var(--tx);-webkit-text-fill-color:currentColor;font-weight:750;letter-spacing:-.035em}
+.hero2 h1{font-weight:800;letter-spacing:-.05em}
+.grad{background-image:linear-gradient(110deg,var(--ac),var(--ac3) 45%,var(--ac2));background-size:200% auto}
+.btn.p,.askbar button,.fab,.dock .ai{background:linear-gradient(120deg,var(--ac),var(--ac3));color:#fff}
+.btn.p:hover{box-shadow:0 14px 40px -10px var(--ac3)}
+.ring{background:conic-gradient(from 0deg,var(--ac),var(--ac3),var(--ac2),var(--ac))}
+.hpic img{box-shadow:0 30px 90px -20px color-mix(in srgb,var(--ac3) 60%,transparent)}
+nav{background:color-mix(in srgb,var(--bg) 62%,transparent)}
+.card{border-radius:var(--r);background:linear-gradient(155deg,color-mix(in srgb,var(--bg2) 80%,transparent),var(--surf))}
+.card:hover{border-color:color-mix(in srgb,var(--ac3) 55%,var(--line));box-shadow:0 26px 70px -30px var(--ac3)}
+.tag{background:color-mix(in srgb,var(--ac) 14%,transparent);color:color-mix(in srgb,var(--ac2) 70%,var(--tx))}
+.eyebrow{color:var(--ac2)}
+.tl>div::before{background:linear-gradient(var(--ac),var(--ac3));box-shadow:0 0 0 4px color-mix(in srgb,var(--ac3) 28%,transparent)}
+/* achievements */
+#ach .card{display:flex;flex-direction:column;gap:8px}#ach .card b{font-size:13px;color:var(--ac2);font-weight:650}
+#ach .card h3{margin:0}#ach .card small{color:var(--mut)}
+/* case study inside project dialog */
+.cs{display:grid;gap:12px;border-top:1px solid var(--line);padding-top:14px}.cs h4{margin:0 0 4px;font-size:13px;color:var(--ac2);font-weight:650}
+.cs p,.cs li{margin:0;color:var(--mut);font-size:14.5px;line-height:1.55}.cs ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
+dialog.pm{width:min(680px,calc(100vw - 24px))}
+@media(max-width:620px){section{padding:52px 0}h2{font-size:30px}}
+/* language switch + RTL / Arabic */
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surf)}
+.lang button{min-width:36px;min-height:38px;border:0;background:none;color:var(--mut);font:650 12.5px inherit;cursor:pointer;padding:0 8px}
+.lang button[aria-pressed=true]{background:linear-gradient(120deg,var(--ac),var(--ac3));color:#fff}
+html[lang=ar]{font-family:"IBM Plex Sans Arabic",Cairo,"Segoe UI","Noto Sans Arabic",Tahoma,sans-serif}
+html[lang=ar] *{letter-spacing:0!important}html[lang=ar] .eyebrow{text-transform:none;font-family:inherit;font-size:13px}
+html[lang=ar] .hero2 h1,html[lang=ar] h2{line-height:1.25}html[lang=ar] .role,html[lang=ar] .track{font-family:inherit}
+html[lang=fr] .btn,html[lang=fr] .filters button{white-space:normal;text-align:center}
+[dir=rtl] a[href^=mailto],[dir=rtl] code,[dir=rtl] pre,[dir=rtl] .field[type=email]{direction:ltr;unicode-bidi:isolate}
+[dir=rtl] .tl{border-left:0;border-right:1px solid var(--line);margin:0 6px 0 0;padding:0 26px 0 0}[dir=rtl] .tl>div::before{left:auto;right:-32px}
+[dir=rtl] .fab{right:auto;left:16px}[dir=rtl] .totop{right:auto;left:16px}[dir=rtl] .pm .x{right:auto;left:14px}[dir=rtl] .pm h3{padding:0 0 0 36px}
+[dir=rtl] .f1{left:auto;right:-4%}[dir=rtl] .f2{right:auto;left:-6%}[dir=rtl] .f3{left:auto;right:12%}
+[dir=rtl] .cs ul{padding:0 1.1em 0 0}[dir=rtl] .m ul,[dir=rtl] .m ol{padding:0 1.3em 0 0}
+@media(max-width:620px){#kbtn{display:none}.lang button{min-width:32px;padding:0 6px}.bar{gap:6px}}
+/* fixes: RTL-safe offscreen elements, bottom dock must not stretch to the top */
+.hp{left:0;width:1px;height:1px;opacity:0;overflow:hidden;clip-path:inset(50%);pointer-events:none}
+.skip{left:8px;transform:translateY(-300%)}.skip:focus{transform:none}
+nav.dock{top:auto}
+
+
+/* Keep the accent-color switch working in light mode.
+   These selectors intentionally come after the base light-theme variables. */
+:root[data-theme=light][data-accent=violet]{--ac:#a78bfa;--ac2:#f0abfc}
+:root[data-theme=light][data-accent=emerald]{--ac:#34d399;--ac2:#67e8f9}
+:root[data-theme=light][data-accent=amber]{--ac:#fbbf24;--ac2:#fb7185}
+:root[data-theme=light][data-accent=rose]{--ac:#fb7185;--ac2:#fdba74}
